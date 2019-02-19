@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resolv-conf
+data:
+  stubDomains: |
+    {"consul.local": ["10.150.0.1"]}

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      webapp: hello
+  template:
+    metadata:
+      labels:
+        webapp: hello
+    spec:
+      containers:
+      - name: webapp
+        image: dannypsnl/webapp
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: world-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      webapp: world
+  template:
+    metadata:
+      labels:
+        webapp: world
+    spec:
+      containers:
+      - name: webapp
+        image: dannypsnl/webapp
+        command: ["/go/bin/webapp"]
+        args:
+        - world
+        ports:
+        - containerPort: 8080

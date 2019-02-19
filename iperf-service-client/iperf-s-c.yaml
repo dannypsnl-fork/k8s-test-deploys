@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf-service-deploy
+  labels:
+    app: iperf-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf-service
+  template:
+    metadata:
+      labels:
+        app: iperf-service
+    spec:
+      containers:
+      - name: alpine
+        image: alpine
+        command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf-service
+spec:
+  selector:
+    app: iperf-service
+  ports:
+  - protocol: TCP
+    name: tcp-mapping
+    port: 80
+    targetPort: 5201
+  - protocol: UDP
+    name: udp-mapping
+    port: 80
+    targetPort: 5201
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf-client-deploy
+  labels:
+    app: iperf-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf-client
+  template:
+    metadata:
+      labels:
+        app: iperf-client
+    spec:
+      containers:
+      - name: alpine
+        image: alpine
+        command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
+      restartPolicy: Always
+
