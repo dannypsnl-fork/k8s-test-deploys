@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: huge-page-test
+spec:
+  containers:
+  - image: fedora:latest
+    command:
+    - sleep
+    - inf
+    name: example
+    volumeMounts:
+    - mountPath: /hugepages
+      name: hugepage
+    resources:
+      limits:
+        cpu: 100m
+        memory: 5000Ki
+        hugepages-2Mi: 100Mi
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
