@@ -19,6 +19,10 @@ spec:
       containers:
       - name: r1-alpine
         image: alpine
+        resources:
+          limits:
+            cpu: 200m
+            memory: 200Mi
         command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
       restartPolicy: Always
 
