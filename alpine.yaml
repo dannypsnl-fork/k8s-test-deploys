@@ -17,6 +17,6 @@ spec:
       containers:
       - name: alpine
         image: alpine
-        command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
+        command: ['sh', '-c', 'apk update && apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
       restartPolicy: Always
 
