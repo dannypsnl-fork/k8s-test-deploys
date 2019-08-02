@@ -14,9 +14,9 @@ spec:
       labels:
         app: debug
     spec:
+      hostNetwork: true
       containers:
       - name: debug
         image: dannypsnl/debug
         command: ['sh', '-c', 'sleep 360000000']
       restartPolicy: Always
-
