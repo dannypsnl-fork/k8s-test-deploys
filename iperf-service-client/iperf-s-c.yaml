@@ -17,7 +17,7 @@ spec:
       containers:
       - name: alpine
         image: alpine
-        command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && sleep 36000']
+        command: ['sh', '-c', 'apk add bind-tools iperf3 curl bash tcpdump && iperf3 -s']
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -30,21 +30,20 @@ spec:
   ports:
   - protocol: TCP
     name: tcp-mapping
-    port: 80
+    port: 5201
     targetPort: 5201
   - protocol: UDP
     name: udp-mapping
-    port: 80
+    port: 5201
     targetPort: 5201
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: iperf-client-deploy
   labels:
     app: iperf-client
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: iperf-client
