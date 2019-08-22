@@ -1,12 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: debug
   namespace: debug
   labels:
     app: debug
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: debug
