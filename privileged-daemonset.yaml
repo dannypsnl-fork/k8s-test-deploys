@@ -12,8 +12,8 @@ spec:
         name: privileged-container
     spec:
       containers:
-      - name: busybox
-        image: busybox
+      - name: a-container
+        image: ubuntu:18.04
         resources:
           limits:
             cpu: 200m
