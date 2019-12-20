@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: get-labels
+spec:
+  selector:
+    matchLabels:
+      name: get-labels-container
+  template:
+    metadata:
+      labels:
+        name: get-labels-container
+    spec:
+      containers:
+      - name: a-container
+        image: ubuntu:18.04
+        env:
+          - name: SELECTOR
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.labels['name']
+        volumeMounts:
+        - name: podinfo
+          mountPath: /etc/podinfo
+        command:
+        - sleep
+        - inf
+      volumes:
+      - name: podinfo
+        downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
